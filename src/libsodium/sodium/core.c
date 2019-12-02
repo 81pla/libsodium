@@ -125,8 +125,6 @@ sodium_crit_enter(void)
 int
 sodium_crit_leave(void)
 {
-    int ret;
-
     if (locked == 0) {
 # ifdef EPERM
         errno = EPERM;
@@ -138,7 +136,7 @@ sodium_crit_leave(void)
     return pthread_mutex_unlock(&_sodium_lock);
 }
 
-#elif defined(HAVE_ATOMIC_OPS) && !defined(__EMSCRIPTEN__) && !defined(__native_client__)
+#elif defined(HAVE_ATOMIC_OPS) && !defined(__EMSCRIPTEN__)
 
 static volatile int _sodium_lock;
 
